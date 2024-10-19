@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Factures</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<!--<div class="w-100">-->
+<!--    <h1 th:utext="'Facures nous y voila'"></h1>-->
+<!--</div>-->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light"
+     th:include="parts/fragments :: my-menu">
+</nav>
+
+<table class="table">
+
+
+    <tbody>
+    <th:block th:each="facture : ${factures}">
+
+        <div class="row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 th:utext= "' Facture numéro :  ' + ${facture.id}"  class="card-title"></h5>
+                        <p th:utext=" 'Client : ' + ${facture.client.id}"></p>
+                        <p th:utext=" 'Emetteur : ' + ${facture.emeteur.id}"></p>
+                        <p th:utext=" 'A régler/Réglé le : ' + ${#dates.format(facture.datePayment,'dd/MM/YYYY')}"></p>
+
+                        <a th:href="@{detail/{facture}(facture=${facture.id})}" >
+                            <button class="btn btn-primary">Voir la facture </button>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </th:block>
+
+    </tbody>
+
+
+</table>
+
+
+<div th:include="parts/fragments :: footer"></div>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

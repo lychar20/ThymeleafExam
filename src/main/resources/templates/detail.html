@@ -1,0 +1,105 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Les capitales du monde</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light"
+     th:include="parts/fragments :: my-menu">
+</nav>
+
+
+<div class="menuDetail">
+<span class="factureDetail" th:utext="'Les factures > Facture numéro '+ ${facture.id}" >
+
+</span>
+
+
+
+<span>
+
+<a th:href="@{/ligne/{facture}(facture=${facture.id})}">
+    <button type="button" class="btn btn-secondary">Voir les lignes</button>
+</a>
+
+<a th:href="@{/pdf/{facture}(facture=${facture.id})}">
+
+    <button type="button" class="btn btn-secondary">Export as PDF</button>
+</a>
+
+</span>
+
+</div>
+
+<div class="container">
+
+    <div class="d-flex p-5 ">
+
+    <div class="card text-bg-success mb-3 cardDetail" style="max-width: 18rem;">
+        <div th:utext="'Emetteur : '+ ${facture.emeteur.getRaisonSociale()}"></div>
+        <div class="card-body">
+            <h5 th:utext="'SIRET: '+ ${facture.emeteur.getSiret()}"> </h5>
+            <h5 th:utext="'Adresse ' + ${facture.emeteur.getNumeroRue()} + ${facture.emeteur.getRue()}"> </h5>
+            <h5 th:utext=" ${facture.emeteur.getCodePostal()} + ' Ville ' "> </h5>
+
+        </div>
+    </div>
+
+    <div class="card text-bg-success mb-3" style="max-width: 18rem;">
+        <div th:utext="'Destinataire '+ ${facture.client.getRaisonSociale()}"></div>
+        <div class="card-body">
+            <h5 th:utext="'Siret '+ ${facture.client.getSiret()}"> </h5>
+            <h5 th:utext="'Adresse '+ ${facture.client.getNumeroRue()} + ${facture.client.getRue()}  "> </h5>
+            <h5 th:utext=" ${facture.client.getCodePostal()} + ' Ville ' "> </h5>
+        </div>
+    </div>
+
+
+
+    </div>
+
+
+    <table class="table tableLigne">
+        <thead>
+        <tr>
+            <th scope="col">Quantité</th>
+            <th scope="col">Description</th>
+            <th scope="col">Prix unitaire HT</th>
+            <th scope="col">TVA</th>
+            <th scope="col">Total HT</th>
+            <th scope="col">Total TTC</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="ligne : ${facture.lignes}">
+            <tr>
+                <td th:utext="${ligne.getQuantity()}"></td>
+                <td th:utext="${ligne.getDesignation()}"></td>
+                <td th:utext="${ligne.getPrixHt()}"></td>
+                <td th:utext="${ligne.getTva().libelle}"></td>
+                <td th:utext="${ligne.getQuantity()} * ${ligne.getPrixHt()} + '€' "></td>
+                <td> <script type="text/javascript">
+                    total()
+                </script>  </td>
+
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+<div th:include="parts/fragments :: footer"></div>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</body>
+</html>

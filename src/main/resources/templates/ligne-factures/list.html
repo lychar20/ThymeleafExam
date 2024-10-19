@@ -1,0 +1,83 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Les capitales du monde</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light"
+     th:include="parts/fragments :: my-menu">
+</nav>
+
+
+<!--<div class="menuDetail">-->
+<!--<span class="factureDetail">-->
+<!--    Voici les lignes mmmmmmm-->
+<!--</span>-->
+
+<div class="menuDetail">
+<span class="factureDetail" th:utext="'Les factures > Facture numéro '+ ${facture.id}" >
+
+</span>
+
+
+
+    <span>
+
+<a th:href="@{/detail/{facture}(facture=${facture.id})}">
+    <button type="button" class="btn btn-secondary">Retour</button>
+</a>
+
+<a th:href="@{/ligne/{facture}/ajout(facture=${facture.id})}">
+
+    <button type="button" class="btn btn-secondary">Ajouter une ligne</button>
+</a>
+
+
+</span>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="container">
+        <table class="table tableLigne">
+            <thead>
+            <tr>
+                <th scope="col">Identifiant</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Description</th>
+                <th scope="col">Prix unitaire HT</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="ligne : ${facture.lignes}">
+                <tr>
+                    <td th:utext="${ligne.id}"></td>
+                    <td th:utext="${ligne.quantity}"></td>
+                    <td th:utext="${ligne.designation}"></td>
+                    <td th:utext="${ligne.prixHt} + '€'"></td>
+
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</div>
+
+
+
+<div th:include="parts/fragments :: footer"></div>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

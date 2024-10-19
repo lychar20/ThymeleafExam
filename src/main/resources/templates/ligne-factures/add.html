@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Les capitales du monde</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light"
+     th:include="parts/fragments :: my-menu">
+</nav>
+
+<div class="container">
+
+<div>Ici c'est pour ajouter une ligne</div>
+
+
+
+
+
+<a class="ligneAgout" th:href="@{/ligne/{facture}(facture=${facture.id})}">
+    <button type="button" class="btn btn-secondary">Retour</button>
+</a>
+
+
+    <form th:object="${ligneFacture}" method="post">
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+        <div class="col">
+            <div data-mdb-input-init class="form-outline">
+<!--                <input type="text" id="form6Example1" class="form-control" />-->
+<!--                <label class="form-label" for="form6Example1">Prix HT</label>-->
+                <input
+                        th:field="*{prixHt}"
+                        type="number"
+                        th:class="${#fields.hasErrors('prixHt')}
+                    ?'is-invalid form-control'
+                    :'form-control'"
+                        id="prixHT" placeholder="Prix HT">
+                <div th:if="${#fields.hasErrors('prixHt')}"
+                     th:errors="*{prixHt}"
+                     id="validationServerNameFeedback"
+                     class="invalid-feedback">
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+    <!-- Text input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+<!--        <input type="text" id="form6Example3" class="form-control" />-->
+<!--
+    <label class="form-label" for="form6Example3">Quantité</label>-->
+
+
+    </div>
+
+    <!-- Number input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <input type="number" id="form6Example6" class="form-control" />
+        <label class="form-label" for="form6Example6">TVA</label>
+    </div>
+
+    <!-- Message input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+        <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+        <label class="form-label" for="form6Example7">Désignation</label>
+    </div>
+
+    <!-- Checkbox -->
+
+
+    <!-- Submit button -->
+    <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Enregistrer</button>
+    </form>
+
+
+
+
+<div th:include="parts/fragments :: footer"></div>
+
+</div>
+
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

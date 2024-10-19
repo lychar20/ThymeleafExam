@@ -1,0 +1,23 @@
+h1{
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+}
+
+.cardDetail{
+    margin-right: 200px;
+}
+
+.factureDetail{
+    margin-right: 50%;
+    margin-left: 13px;
+}
+
+.tableLigne {
+    margin-top:60px;
+}
+
+.ligneAgout{
+    margin-left: 90% ;
+
+}
